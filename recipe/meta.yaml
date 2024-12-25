@@ -6,23 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pegen-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pegen-{{ version }}.tar.gz
   sha256: 8cb30cee508a95c573aa256ed2cfa80ef8f561b90264c70e7de5afc50b4ac87d
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8,<4.0
+    - python {{ python_min }}
     - setuptools >=61.2
     - wheel
     - setuptools-scm >=3.4.3
     - pip
   run:
-    - python >=3.8,<4.0
+    - python >={{ python_min }},<4.0
 
 test:
   imports:
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   summary: CPython's PEG parser generator
